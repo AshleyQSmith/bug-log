@@ -3,6 +3,7 @@ import BaseController from "../utils/BaseController";
 import auth0Provider from "@bcwdev/auth0provider";
 import { profilesService } from "../services/ProfilesService";
 import { bugsService } from "../services/BugsService";
+import { notesService } from "../services/NotesService";
 
 export class BugsController extends BaseController {
   constructor() {
@@ -16,7 +17,7 @@ export class BugsController extends BaseController {
 
       .put("/:id", this.editBug)
       // no true delete - just marking bug closed
-      .delete("/:id", this.deleteBug);
+      .put("/:id", this.closeBug);
   }
 
   async createBug(req, res, next) {
@@ -48,8 +49,33 @@ export class BugsController extends BaseController {
     }
   }
 
-  async getNotesByBugId(req, res, next) {}
-  async editBug(req, res, next) {}
+  async getNotesByBugId(req, res, next) {
+    try {
+      let data = await notesService.getNotesByBugId(req.params.bugId);
+      return res.send(data);
+    } catch (error) {
+      next(error);
+    }
+  }
+  async editBug(req, res, next) {
+    try {
+      let data = await bugsService.edit(
+        req.params.id,
+        req.userInfo.email,
+        req.body
+      );
+      return res.send(data);
+    } catch (error) {
+      next(error);
+    }
+  }
   // no true delete, just marking bug closed
-  async deleteBug(req, res, next) {}
+  async closeBug(req, res, next) {
+    try {
+      let data = await bugsService.close(req.params.id, req.userInfo.email);
+      return res.send(data);
+    } catch (error) {
+      next(error);
+    }
+  }
 }

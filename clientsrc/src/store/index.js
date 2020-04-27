@@ -78,11 +78,10 @@ export default new Vuex.Store({
         console.error(error);
       }
     },
-    async deleteBug({ commit, dispatch }, bugId) {
-      // shouldn't delete permanently? maybe needs changed to soft-delete
+    async closeBug({ commit, dispatch }, bugId) {
       try {
-        await api.delete("bugs/" + bugId);
-        this.dispatch("getBugs");
+        await api.put("bugs/" + bugId, { closed: true });
+        dispatch("getBugById", bugId);
       } catch (error) {
         console.error(error);
       }

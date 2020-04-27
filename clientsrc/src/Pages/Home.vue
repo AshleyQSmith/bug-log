@@ -38,9 +38,19 @@
       </div>
       <div class="row">
         <div class="col-12">
-          <div class="card-deck">
-            <bugPreview v-for="bug in bugs" :bugData="bug" :key="bug.id"></bugPreview>
-          </div>
+          <table class="table table-hover table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Reported By</th>
+                <th scope="col">Status</th>
+                <th scope="col">Last Modified</th>
+              </tr>
+            </thead>
+            <tbody>
+              <bugPreview v-for="bug in bugs" :bugData="bug" :key="bug.id"></bugPreview>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -63,11 +73,11 @@ export default {
     };
   },
   computed: {
+    profile() {
+      return this.$auth.user;
+    },
     bugs() {
       return this.$store.state.bugs;
-    },
-    user() {
-      return this.$store.profile;
     }
   },
   methods: {
