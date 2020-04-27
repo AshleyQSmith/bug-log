@@ -11,18 +11,27 @@ let baseUrl = location.host.includes("localhost")
 
 let api = Axios.create({
   baseURL: baseUrl + "api",
-  timeout: 3000,
-  withCredentials: true
+  timeout: 15000,
+  withCredentials: true,
 });
 
 export default new Vuex.Store({
   state: {
-    profile: {}
+    // user: {},
+    bugs: [],
+    activeBug: {},
+    profile: {},
   },
   mutations: {
     setProfile(state, profile) {
       state.profile = profile;
-    }
+    },
+    setBugs(state, bugs) {
+      state.bugs = bugs;
+    },
+    setActiveBug(state, bug) {
+      state.activeBug = bug;
+    },
   },
   actions: {
     setBearer({}, bearer) {
@@ -38,6 +47,52 @@ export default new Vuex.Store({
       } catch (error) {
         console.error(error);
       }
-    }
-  }
+    },
+    async getBugs({ commit, dispatch }) {
+      try {
+        let res = await api.get("bugs");
+        commit("setBugs", res.data);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async getBugById({ commit, dispatch }, bugId) {
+      try {
+        let res = await api.get("bugs/" + bugId);
+        commit("setActiveBug", res.data);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async addBug({ commit, dispatch }, bugData) {
+      try {
+        await api.post("bugs", bugData);
+        dispatch("getBugById", bugData.id);
+        // need to change pages on create, code below doesn't work yet
+        // commit("setActiveBug", bugData);
+        // router.push({
+        //   name: "Bug",
+        //   params: { bugId: bugData.id },
+        // });
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async deleteBug({ commit, dispatch }, bugId) {
+      // shouldn't delete permanently? maybe needs changed to soft-delete
+      try {
+        await api.delete("bugs/" + bugId);
+        this.dispatch("getBugs");
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async editBug({ commit, dispatch }, bugData) {
+      try {
+        await api.put("bugs/" + bugData.id, bugData);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+  },
 });
