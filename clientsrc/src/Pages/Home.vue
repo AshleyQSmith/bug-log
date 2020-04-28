@@ -81,21 +81,17 @@ export default {
     }
   },
   methods: {
-    async addBug() {
-      try {
-        await this.$store.dispatch("addBug", this.newBug);
-        this.newBug = {
-          title: "",
-          description: "",
-          closed: false
-        };
-        this.$router.push({
-          name: "Bug",
-          params: { bugId: this.newBug.id }
-        });
-      } catch (error) {
-        console.log("add bug error from home.vue");
-      }
+    addBug() {
+      this.$store.dispatch("addBug", this.newBug);
+      this.newBug = {
+        title: "",
+        description: ""
+      };
+      // moved to store
+      // this.$router.push({
+      //   name: "Bug",
+      //   params: { bugId: this.newBug.id }
+      // });
     }
   },
   components: { bugPreview }

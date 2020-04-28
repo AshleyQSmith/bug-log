@@ -14,6 +14,7 @@
             @click="triggerEditBug()"
             data-toggle="modal"
             data-target="#editBugModal"
+            v-if="!bug.closed"
           >
             Edit
             <!-- <i class="fas fa-pencil-alt text-warning"></i> -->
@@ -133,7 +134,8 @@ export default {
     },
     closeBug() {
       if (confirm("Are You Sure?")) {
-        this.$store.dispatch("closeBug", this.bugData);
+        this.bug.closed = true;
+        this.$store.dispatch("closeBug", this.bug);
       } else {
         console.log("Close Canceled");
       }

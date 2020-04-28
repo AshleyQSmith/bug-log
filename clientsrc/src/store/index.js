@@ -66,22 +66,26 @@ export default new Vuex.Store({
     },
     async addBug({ commit, dispatch }, bugData) {
       try {
-        await api.post("bugs", bugData);
-        commit("setActiveBug", bugData);
-        // need to change pages on create, code below doesn't work yet
-        // commit("setActiveBug", bugData);
-        // router.push({
-        //   name: "Bug",
-        //   params: { bugId: bugData.id },
-        // });
+        let res = await api.post("bugs/", bugData);
+        dispatch("getBugPage", res.data.id);
       } catch (error) {
         console.error(error);
       }
     },
-    async closeBug({ commit, dispatch }, bugId) {
+    async getBugPage({ commit, dispatch }, bugId) {
       try {
-        await api.put("bugs/" + bugId, { closed: true });
-        dispatch("getBugById", bugId);
+        let res = await api.get("bugs/" + bugId);
+        commit("setActiveBug", res.data);
+        router.push("bugs/" + bugId);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async closeBug({ commit, dispatch }, bug) {
+      try {
+        debugger;
+        await api.put("bugs/" + bug.id, { closed: bug.closed });
+        dispatch("getBugById", bug.id);
       } catch (error) {
         console.error(error);
       }
