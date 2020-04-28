@@ -1,13 +1,11 @@
 <template>
-  <div class="Note">
-    <tr>
-      <th scope="row">{{noteData.creatorEmail}}test</th>
-      <td>{{noteData.content}}test</td>
-      <td>
-        <button class="btn btn-danger" @click="deleteNote()">Delete</button>
-      </td>
-    </tr>
-  </div>
+  <tr class="Note">
+    <th scope="row">{{noteData.creatorEmail}}test</th>
+    <td>{{noteData.content}}test</td>
+    <td>
+      <button class="btn btn-danger" @click="deleteNote()">Delete</button>
+    </td>
+  </tr>
 </template>
 
 

@@ -87,11 +87,6 @@ export default {
         title: "",
         description: ""
       };
-      // moved to store
-      // this.$router.push({
-      //   name: "Bug",
-      //   params: { bugId: this.newBug.id }
-      // });
     }
   },
   components: { bugPreview }

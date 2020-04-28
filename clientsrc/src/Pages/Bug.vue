@@ -54,7 +54,7 @@
       </div>
       <div class="col-6">
         <div class="col-10 mx-auto">
-          <form action="submit" @submit.prevent="addNote()">
+          <form action="submit">
             <div class="form-row">
               <div class="col-9">
                 <input
@@ -65,7 +65,7 @@
                 />
               </div>
               <div class="col-3">
-                <button type="submit" class="btn btn-primary add-note-form">
+                <button type="submit" @click="addNote()" class="btn btn-primary add-note-form">
                   <!-- <i class="fas fa-plus text-white pb-2"></i> -->
                   Add
                 </button>
