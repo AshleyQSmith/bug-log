@@ -3,7 +3,9 @@
     <tr>
       <th scope="row">{{noteData.creatorEmail}}test</th>
       <td>{{noteData.content}}test</td>
-      <td>delete button</td>
+      <td>
+        <button class="btn btn-danger" @click="deleteNote()">Delete</button>
+      </td>
     </tr>
   </div>
 </template>
@@ -27,7 +29,15 @@ export default {
       return this.$store.state.activeBug;
     }
   },
-  methods: {},
+  methods: {
+    deleteNote() {
+      if (confirm("Are You Sure?")) {
+        this.$store.dispatch("deleteNote", this.noteData.id);
+      } else {
+        console.log("Delete Canceled");
+      }
+    }
+  },
   components: {}
 };
 </script>

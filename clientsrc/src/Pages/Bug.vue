@@ -132,7 +132,11 @@ export default {
       this.newNote = {};
     },
     closeBug() {
-      this.$store.dispatch("closeBug", this.bugData);
+      if (confirm("Are You Sure?")) {
+        this.$store.dispatch("closeBug", this.bugData);
+      } else {
+        console.log("Close Canceled");
+      }
     }
   },
   props: ["bugId"],

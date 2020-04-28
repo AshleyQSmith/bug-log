@@ -8,7 +8,7 @@
     <div class="bugs container-fluid bg-style">
       <div class="row">
         <div class="col-sm-8 mx-auto my-4">
-          <form @submit.prevent="addBug">
+          <form @submit.prevent="addBug()">
             <div class="form-row">
               <div class="col-md-5">
                 <input
@@ -81,13 +81,21 @@ export default {
     }
   },
   methods: {
-    addBug() {
-      this.$store.dispatch("addBug", this.newBug);
-      this.newBug = {
-        title: "",
-        description: "",
-        closed: false
-      };
+    async addBug() {
+      try {
+        await this.$store.dispatch("addBug", this.newBug);
+        this.newBug = {
+          title: "",
+          description: "",
+          closed: false
+        };
+        this.$router.push({
+          name: "Bug",
+          params: { bugId: this.newBug.id }
+        });
+      } catch (error) {
+        console.log("add bug error from home.vue");
+      }
     }
   },
   components: { bugPreview }

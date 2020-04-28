@@ -67,7 +67,7 @@ export default new Vuex.Store({
     async addBug({ commit, dispatch }, bugData) {
       try {
         await api.post("bugs", bugData);
-        dispatch("getBugById", bugData.id);
+        commit("setActiveBug", bugData);
         // need to change pages on create, code below doesn't work yet
         // commit("setActiveBug", bugData);
         // router.push({
