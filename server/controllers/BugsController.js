@@ -9,12 +9,11 @@ export class BugsController extends BaseController {
   constructor() {
     super("api/bugs");
     this.router
-      .use(auth0Provider.getAuthorizedUserInfo)
-      .post("", this.createBug)
       .get("", this.getAllBugs)
       .get("/:id", this.getBugById)
       .get("/:bugId/notes", this.getNotesByBugId)
-
+      .use(auth0Provider.getAuthorizedUserInfo)
+      .post("", this.createBug)
       .put("/:id", this.editBug)
       // no true delete - just marking bug closed
       .put("/:id", this.closeBug);
@@ -33,7 +32,7 @@ export class BugsController extends BaseController {
 
   async getAllBugs(req, res, next) {
     try {
-      let data = await bugsService.getAllBugs(req.userInfo.email);
+      let data = await bugsService.getAllBugs();
       return res.send(data);
     } catch (error) {
       next(error);
