@@ -65,7 +65,11 @@
                 />
               </div>
               <div class="col-3">
-                <button type="submit" @click="addNote()" class="btn btn-primary add-note-form">
+                <button
+                  type="submit"
+                  @submit.prevent="addNote()"
+                  class="btn btn-primary add-note-form"
+                >
                   <!-- <i class="fas fa-plus text-white pb-2"></i> -->
                   Add
                 </button>
@@ -119,8 +123,9 @@ export default {
     }
   },
   mounted() {
+    debugger;
     this.$store.dispatch("getBugById", this.$route.params.bugId);
-    // this.$store.dispatch("getNotesByBugId", this.$route.params.bugId);
+    this.$store.dispatch("getNotesByBugId", this.$route.params.bugId);
   },
   methods: {
     triggerEditBug() {

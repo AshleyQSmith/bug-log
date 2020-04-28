@@ -1,7 +1,7 @@
 <template>
   <tr class="Note">
-    <th scope="row">{{noteData.creatorEmail}}test</th>
-    <td>{{noteData.content}}test</td>
+    <th scope="row">{{noteData.creatorEmail}}</th>
+    <td>{{noteData.content}}</td>
     <td>
       <button class="btn btn-danger" @click="deleteNote()">Delete</button>
     </td>
@@ -15,9 +15,6 @@ export default {
   props: ["noteData"],
   data() {
     return {};
-  },
-  mounted() {
-    this.$store.dispatch("getNotesByBugId", this.noteData.id);
   },
   computed: {
     note() {

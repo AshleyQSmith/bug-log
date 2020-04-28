@@ -9,10 +9,9 @@ class BugService {
   async getAllBugs() {
     return await dbContext.Bugs.find().populate("creator", "name picture");
   }
-  async getBugById(id, userEmail) {
+  async getBugById(id) {
     let data = await dbContext.Bugs.findOne({
       _id: id,
-      creatorEmail: userEmail,
     });
     if (!data) {
       throw new BadRequest("Invalid ID or you did not create this bug");

@@ -2,7 +2,7 @@ import { dbContext } from "../db/DbContext";
 
 class NoteService {
   async getNotesByBugId(bugId) {
-    let notes = await dbContext.Notes.findById({ bugId: bugId.id });
+    let notes = await dbContext.Notes.find({ bugId: bugId });
     return notes;
   }
   async createNote(rawData) {
