@@ -1,8 +1,4 @@
 <template>
-  <!-- <div class="bug-details">
-    <p>The details view provides some additional information about the bug, as well as showing all the notes made by other users. Here notes can be created or removed.</p>
-  </div>-->
-
   <div class="Bug container-fluid bg-style">
     <div class="row pt-4">
       <div class="col-12">
@@ -15,10 +11,7 @@
             data-toggle="modal"
             data-target="#editBugModal"
             v-if="!bug.closed"
-          >
-            Edit
-            <!-- <i class="fas fa-pencil-alt text-warning"></i> -->
-          </button>
+          >Edit</button>
         </div>
         <EditModal id="editBugModal" title="Edit your Bug Report">
           <EditBug></EditBug>
@@ -42,10 +35,7 @@
           </div>
         </div>
       </div>
-      <button class="btn btn-danger ml-auto mr-5 mt-1" @click="closeBug()">
-        Close Bug
-        <!-- <i class="fas fa-trash-alt text-danger"></i> -->
-      </button>
+      <button class="btn btn-danger ml-auto mr-5 mt-1" @click="closeBug()">Close Bug</button>
     </div>
 
     <div class="row mt-5">
@@ -69,10 +59,7 @@
                   type="submit"
                   @submit.prevent="addNote()"
                   class="btn btn-primary add-note-form"
-                >
-                  <!-- <i class="fas fa-plus text-white pb-2"></i> -->
-                  Add
-                </button>
+                >Add</button>
               </div>
             </div>
           </form>

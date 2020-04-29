@@ -15,13 +15,11 @@ export class BugsController extends BaseController {
       .use(auth0Provider.getAuthorizedUserInfo)
       .post("", this.createBug)
       .put("/:id", this.editBug)
-      // no true delete - just marking bug closed
       .put("/:id", this.closeBug);
   }
 
   async createBug(req, res, next) {
     try {
-      // need to make sure 'body' has creatorEmail attached, otherwise need to pull in user data
       req.body.creatorEmail = req.userInfo.email;
       let data = await bugsService.createBug(req.body);
       return res.status(201).send(data);
@@ -68,7 +66,6 @@ export class BugsController extends BaseController {
       next(error);
     }
   }
-  // no true delete, just marking bug closed
   async closeBug(req, res, next) {
     try {
       let data = await bugsService.close(req.params.id, req.userInfo.email);

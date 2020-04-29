@@ -106,7 +106,6 @@ export default new Vuex.Store({
         console.log(noteData);
         let res = await api.post("notes/", noteData);
         dispatch("getNotesByBugId", noteData.bugId);
-        // dispatch("getBug", noteData.bugId);
       } catch (error) {
         console.error(error);
       }
